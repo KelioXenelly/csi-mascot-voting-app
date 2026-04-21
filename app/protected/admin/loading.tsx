@@ -1,5 +1,3 @@
-import { Activity, Vote, Users, Trophy } from "lucide-react";
-
 export default function AdminLoading() {
   return (
     <div className="w-full max-w-7xl mx-auto space-y-12 animate-pulse p-4">
