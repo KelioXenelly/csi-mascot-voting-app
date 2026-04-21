@@ -10,7 +10,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "CSI Mascot Design Competition 2024",
+  title: "CSI Mascot Design Competition 2026",
   description: "Official voting platform for the CSI Mascot Design Competition. Cast your vote for the new face of CSI.",
 };
 
