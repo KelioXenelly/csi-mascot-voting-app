@@ -18,11 +18,9 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-md" 
       if (e.key === "Escape") onClose();
     };
     if (isOpen) {
-      document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleEsc);
     }
     return () => {
-      document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleEsc);
     };
   }, [isOpen, onClose]);
@@ -39,10 +37,11 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-md" 
       
       {/* Content */}
       <div className={cn(
-        "relative w-full bg-white/90 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white/40 overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300",
-        maxWidth
+        "relative w-full bg-white/90 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white/40 overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300 flex flex-col",
+        maxWidth,
+        "max-h-[90vh]"
       )}>
-        <div className="p-8 pb-4 flex items-center justify-between border-b border-white/20">
+        <div className="p-8 pb-4 flex items-center justify-between border-b border-white/20 shrink-0">
           <h2 className="text-2xl font-black tracking-tight">{title}</h2>
           <button 
             onClick={onClose}
@@ -52,7 +51,7 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-md" 
           </button>
         </div>
         
-        <div className="p-8 pt-6">
+        <div className="p-8 pt-6 overflow-y-auto">
           {children}
         </div>
       </div>
