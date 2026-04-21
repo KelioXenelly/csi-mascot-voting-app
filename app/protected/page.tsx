@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
-
 import { createClient } from "@/lib/supabase/server";
 import { ADMIN_EMAILS } from "@/utils/auth";
+
+export const dynamic = "force-dynamic";
 
 export default async function ProtectedPage() {
   const supabase = await createClient();

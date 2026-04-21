@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { ADMIN_EMAILS } from "@/utils/auth";
 import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 import { AddMascotForm } from "@/components/add-mascot-form";
 import { AdminMascotList } from "@/components/admin-mascot-list";
 import { 
