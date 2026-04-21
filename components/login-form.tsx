@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function LoginForm({
   className,
@@ -22,7 +23,6 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -30,7 +30,6 @@ export function LoginForm({
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
-    setError(null);
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -38,10 +37,16 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
-      // Update this route to redirect to an authenticated route. The user already has an active session.
+      
+      toast.success("Welcome back!", {
+        description: "Login successful. Redirecting you to the voting panel."
+      });
       router.push("/protected");
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      const message = error instanceof Error ? error.message : "An error occurred";
+      toast.error("Login Failed", {
+        description: message
+      });
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +58,7 @@ export function LoginForm({
         <CardHeader className="space-y-1 pb-8 pt-10 text-center">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-br from-blue-600 to-indigo-600">
-              CSI Mascot Voting
+              CSI Mascot Vote
             </h1>
             <p className="text-sm text-muted-foreground mt-2 font-medium">
               Secure login to cast your vote for the <br />
@@ -95,11 +100,6 @@ export function LoginForm({
                   className="bg-white/50 border-foreground/5 h-12 px-4 rounded-xl focus-visible:ring-blue-600/20 focus-visible:border-blue-600 transition-all"
                 />
               </div>
-              {error && (
-                <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-3 rounded-xl flex items-center gap-2">
-                  <span className="text-lg">⚠️</span> {error}
-                </div>
-              )}
               <Button 
                 type="submit" 
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 active:scale-95 transition-all h-14 rounded-2xl font-black text-lg shadow-lg shadow-blue-500/25" 

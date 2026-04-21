@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Mascot } from "@/app/protected/types/mascot";
 import { Trash2, Edit3, Loader2, AlertCircle } from "lucide-react";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Modal } from "./ui/modal";
 import { Button } from "./ui/button";
@@ -29,9 +30,12 @@ export function AdminMascotList({ mascots }: { mascots: Mascot[] }) {
       
       setIsDeleting(null);
       router.refresh();
+      toast.success("Entry Removed", {
+        description: "The mascot entry and its votes have been permanently cleared."
+      });
+      setDeletingId(null);
     } catch (err) {
       alert("Failed to delete mascot");
-    } finally {
       setDeletingId(null);
     }
   };
@@ -57,9 +61,12 @@ export function AdminMascotList({ mascots }: { mascots: Mascot[] }) {
       
       setEditingMascot(null);
       router.refresh();
+      toast.success("Update Successful", {
+        description: `Changes to ${name} have been saved and are now live.`
+      });
+      setIsUpdating(false);
     } catch (err) {
       alert("Failed to update mascot");
-    } finally {
       setIsUpdating(false);
     }
   };

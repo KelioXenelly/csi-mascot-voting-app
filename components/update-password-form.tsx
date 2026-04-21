@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ShieldCheck, Lock } from "lucide-react";
+import { toast } from "sonner";
 
 export function UpdatePasswordForm({
   className,
@@ -20,7 +21,6 @@ export function UpdatePasswordForm({
 }: React.ComponentPropsWithoutRef<"div">) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -28,10 +28,11 @@ export function UpdatePasswordForm({
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
-    setError(null);
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      toast.error("Password Mismatch", {
+        description: "The new passwords do not match. Please try again."
+      });
       setIsLoading(false);
       return;
     }
@@ -39,9 +40,16 @@ export function UpdatePasswordForm({
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
+      
+      toast.success("Password Updated", {
+        description: "Your account security has been updated successfully."
+      });
       router.push("/protected");
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "Terjadi kesalahan saat memperbarui password");
+      const message = error instanceof Error ? error.message : "Terjadi kesalahan saat memperbarui password";
+      toast.error("Update Failed", {
+        description: message
+      });
     } finally {
       setIsLoading(false);
     }
@@ -97,12 +105,6 @@ export function UpdatePasswordForm({
                 />
               </div>
               
-              {error && (
-                <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-3 rounded-xl flex items-center gap-2 animate-in slide-in-from-top-2">
-                  <span className="text-lg">⚠️</span> {error}
-                </div>
-              )}
-
               <Button 
                 type="submit" 
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 active:scale-95 transition-all h-14 rounded-2xl font-black text-lg shadow-lg shadow-blue-500/25" 

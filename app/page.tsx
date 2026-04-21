@@ -1,7 +1,5 @@
 import { AuthButton } from "@/components/auth-button";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Button } from "@/components/ui/button";
-import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -134,18 +132,23 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 🏢 Footer */}
-        <footer className="w-full border-t border-foreground/5 py-12 bg-background/0 backdrop-blur-xl">
-          <div className="max-w-6xl mx-auto px-6 flex justify-center items-center">
-            <div className="space-y-2">
-              <p className="text-sm font-semibold tracking-tight text-foreground/80">
-                &copy; 2026{" "}
-                <Link href="https://www.instagram.com/xenelly.dev/" target="_blank" rel="noopener noreferrer">
-                  <span className="font-black text-blue-600 underline underline-offset-4 decoration-blue-600">
-                    Xenelly Dev
-                  </span>
-                </Link>
-              </p>
+        {/* 🧘 Minimalist Footer */}
+        <footer className="w-full py-16 border-t border-foreground/5">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p className="text-[13px] font-medium text-muted-foreground/60 tracking-tight">
+              © 2026 CSI Mascot Competition. All rights reserved.
+            </p>
+            
+            <div className="flex items-center gap-2 text-[13px] font-medium text-muted-foreground/60">
+              <span>Developed by</span>
+              <Link 
+                href="https://www.instagram.com/xenelly.dev/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-foreground hover:text-blue-600 transition-colors font-bold decoration-blue-600/30 underline underline-offset-4"
+              >
+                Xenelly Dev
+              </Link>
             </div>
           </div>
         </footer>

@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function SignUpForm({
   className,
@@ -23,7 +24,6 @@ export function SignUpForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -31,16 +31,19 @@ export function SignUpForm({
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
-    setError(null);
 
     if (password !== repeatPassword) {
-      setError("Passwords do not match");
+      toast.error("Passwords mismatch", {
+        description: "Please make sure your passwords match."
+      });
       setIsLoading(false);
       return;
     }
 
     if (!email.toLowerCase().endsWith("@itbss.ac.id")) {
-      setError("Maaf, pendaftaran hanya diperbolehkan menggunakan email institusi @itbss.ac.id");
+      toast.error("Invalid Email Domain", {
+        description: "Maaf, pendaftaran hanya diperbolehkan menggunakan email institusi @itbss.ac.id"
+      });
       setIsLoading(false);
       return;
     }
@@ -56,18 +59,26 @@ export function SignUpForm({
 
       if (error) {
         if (error.message.toLowerCase().includes("already registered") || error.message.toLowerCase().includes("already exists")) {
-          setError("Email ini sudah terdaftar. Mengalihkan ke halaman login dalam 3 detik...");
+          toast.info("Account Exists", {
+            description: "Email ini sudah terdaftar. Mengalihkan ke halaman login..."
+          });
           setTimeout(() => {
             router.push("/auth/login");
-          }, 3000);
+          }, 2000);
           return;
         }
         throw error;
       }
 
+      toast.success("Account Created!", {
+        description: "Please check your email to verify your account."
+      });
       router.push("/auth/sign-up-success");
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "Terjadi kesalahan saat mendaftar");
+      const message = error instanceof Error ? error.message : "Terjadi kesalahan saat mendaftar";
+      toast.error("Registration Error", {
+        description: message
+      });
     } finally {
       setIsLoading(false);
     }
@@ -124,11 +135,6 @@ export function SignUpForm({
                   className="bg-white/50 border-foreground/5 h-12 px-4 rounded-xl focus-visible:ring-blue-600/20 focus-visible:border-blue-600 transition-all"
                 />
               </div>
-              {error && (
-                <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-3 rounded-xl flex items-center gap-2">
-                  <span className="text-lg">⚠️</span> {error}
-                </div>
-              )}
               <Button 
                 type="submit" 
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 active:scale-95 transition-all h-14 rounded-2xl font-black text-lg shadow-lg shadow-blue-500/25" 

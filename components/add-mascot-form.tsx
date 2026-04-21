@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { PlusCircle, Image as ImageIcon, Type, AlignLeft, FileText } from "lucide-react";
+import { toast } from "sonner";
 
 export function AddMascotForm() {
   const supabase = createClient();
@@ -36,12 +37,14 @@ export function AddMascotForm() {
 
       if (error) throw error;
       
-      // Clear form
-      (e.target as HTMLFormElement).reset();
       router.refresh();
+      (e.target as HTMLFormElement).reset();
+      toast.success("Mascot Registered!", {
+        description: `${name} has been added to the competition successfully.`
+      });
+      setIsLoading(false);
     } catch (err: any) {
       setError(err.message || "Failed to add mascot");
-    } finally {
       setIsLoading(false);
     }
   };

@@ -53,20 +53,22 @@ export default function ProtectedLayout({
         </div>
 
         {/* 🏢 Modern Footer */}
-        <footer className="w-full border-t border-foreground/5 py-12 mt-auto">
-          <div className="max-w-5xl mx-auto px-6 flex justify-center items-center">
-            <div className="flex flex-col items-center gap-2">
-              <p className="text-sm font-semibold tracking-tight text-foreground/80">
-                &copy; 2026{" "}
-                <Link
-                  href="https://www.instagram.com/xenelly.dev/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-blue-600 transition-colors cursor-pointer text-blue-600"
-                >
-                  Xenelly Dev
-                </Link>
-              </p>
+        <footer className="w-full py-16 border-t border-foreground/5">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p className="text-[13px] font-medium text-muted-foreground/60 tracking-tight">
+              © 2026 CSI Mascot Competition. All rights reserved.
+            </p>
+            
+            <div className="flex items-center gap-2 text-[13px] font-medium text-muted-foreground/60">
+              <span>Developed by</span>
+              <Link 
+                href="https://www.instagram.com/xenelly.dev/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-foreground hover:text-blue-600 transition-colors font-bold decoration-blue-600/30 underline underline-offset-4"
+              >
+                Xenelly Dev
+              </Link>
             </div>
           </div>
         </footer>

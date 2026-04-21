@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mascot } from "../types/mascot";
 import { Button } from "@/components/ui/button";
-import { Check, Send, Trophy, Star, ChevronLeft } from "lucide-react";
+import { Check, Star, ChevronLeft } from "lucide-react";
 import { MascotPreviewModal } from "@/components/mascot-preview-modal";
 import { cn } from "@/lib/utils";
 
@@ -173,7 +173,7 @@ export default function VotePage() {
       <div className="w-full max-w-4xl bg-white/40 backdrop-blur-md border border-white/20 p-8 rounded-[3rem] shadow-xl mb-16 text-center relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-bl-[5rem] -mr-8 -mt-8 transition-all group-hover:bg-blue-600/10" />
         <div className="inline-flex items-center gap-2 bg-blue-600/10 text-blue-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-           <Star className="w-3 h-3 fill-blue-600" /> CSI Mascot Design Competition 2024
+           <Star className="w-3 h-3 fill-blue-600" /> CSI Mascot Design Competition 2026
         </div>
         <h1 className="text-6xl font-black tracking-tight mb-4 text-foreground relative z-10">
           Cast Your Vote
