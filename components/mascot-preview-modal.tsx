@@ -49,7 +49,7 @@ export function MascotPreviewModal({
             <h3 className="font-black text-sm uppercase tracking-widest text-muted-foreground">Concept Document</h3>
           </div>
           
-          <div className="relative w-full h-[350px] lg:h-[600px] bg-muted/20 rounded-[2rem] border-2 border-dashed border-foreground/5 overflow-hidden group">
+          <div className="relative w-full aspect-[3/4] lg:aspect-auto lg:h-[600px] bg-muted/20 rounded-[2rem] border-2 border-dashed border-foreground/5 overflow-hidden group">
             {mascot.pdf_url ? (
               <iframe
                 src={`${mascot.pdf_url}#toolbar=0`}

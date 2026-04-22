@@ -195,7 +195,7 @@ export default function VotePage() {
             }}
             className={cn(
               "group relative flex flex-col items-center p-6 bg-white/40 backdrop-blur-xl border-2 transition-all duration-300 cursor-pointer rounded-[3rem]",
-              "border-transparent hover:border-white shadow-xl hover:shadow-2xl grayscale-[30%] hover:grayscale-0 hover:-translate-y-2 hover:bg-white"
+              "border-transparent hover:border-white shadow-xl hover:shadow-2xl hover:-translate-y-2 hover:bg-white"
             )}
           >
             {/* Entry Label */}
