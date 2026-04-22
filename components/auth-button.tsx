@@ -13,15 +13,11 @@ export async function AuthButton() {
     // 1. Ambil bagian sebelum @
     const username = email.split("@")[0];
     
-    // 2. Split berdasarkan titik dan bersihkan
-    const words = username.split(".");
+    // 2. Ambil kata pertama sebelum titik
+    const firstWord = username.split(".")[0];
     
-    // 3. Kapitalisasi setiap kata
-    const formatted = words
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ");
-      
-    return formatted;
+    // 3. Kapitalisasi
+    return firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase();
   };
 
   return user ? (
