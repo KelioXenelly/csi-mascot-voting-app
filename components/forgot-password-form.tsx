@@ -27,12 +27,19 @@ export function ForgotPasswordForm({
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
-    setIsLoading(true);
     setError(null);
+    setIsLoading(true);
+    const cleanEmail = email.trim().toLowerCase();
+    
+    if (!cleanEmail.endsWith("@itbss.ac.id")) {
+      setError("Maaf, pendaftaran hanya diperbolehkan menggunakan email institusi @itbss.ac.id");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       // The url which will be included in the email. This URL needs to be configured in your redirect URLs in the Supabase dashboard at https://supabase.com/dashboard/project/_/auth/url-configuration
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
         redirectTo: `${window.location.origin}/auth/update-password`,
       });
       if (error) throw error;
